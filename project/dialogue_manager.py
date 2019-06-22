@@ -1,5 +1,5 @@
 import os
-from sklearn.metrics.pairwise import pairwise_distances_argmin
+from sklearn.metrics.pairwise import cosine_similarity
 
 from chatterbot import ChatBot
 from utils import *
@@ -27,10 +27,10 @@ class ThreadRanker(object):
         # HINT: you have already implemented a similar routine in the 3rd assignment.
 
         question_vec = question_to_vec(question, self.word_embeddings, self.embeddings_dim).reshape(1, -1)
-        best_thread = pairwise_distances_argmin(question_vec,thread_embeddings,metric='cosine')[0]
-
+        similarities = cosine_similarity(question_vec, thread_embeddings)[0]
+        best_thread = sorted([(ivec, r) for ivec, r in enumerate(similarities)], key = lambda x: -x[1])[0][0]
+        del(thread_embeddings)
         return thread_ids[best_thread]
-
 
 class DialogueManager(object):
     def __init__(self, paths):
