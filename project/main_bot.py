@@ -6,6 +6,8 @@ import argparse
 import os
 import json
 
+from dialogue_manager import *
+
 from requests.compat import urljoin
 
 
@@ -61,10 +63,10 @@ class SimpleDialogueManager(object):
     This is the simplest dialogue manager to test the telegram bot.
     Your task is to create a more advanced one in dialogue_manager.py."
     """
-    
-    def generate_answer(self, question): 
-        return "Hello, world!" 
-        
+
+    def generate_answer(self, question):
+        return "Hello, world!"
+
 
 def main():
     args = parse_args()
@@ -77,16 +79,16 @@ def main():
         token = os.environ["TELEGRAM_TOKEN"]
 
     #################################################################
-    
-    # Your task is to complete dialogue_manager.py and use your 
-    # advanced DialogueManager instead of SimpleDialogueManager. 
-    
-    # This is the point where you plug it into the Telegram bot. 
+
+    # Your task is to complete dialogue_manager.py and use your
+    # advanced DialogueManager instead of SimpleDialogueManager.
+
+    # This is the point where you plug it into the Telegram bot.
     # Do not forget to import all needed dependencies when you do so.
-    
-    simple_manager = SimpleDialogueManager()
+
+    simple_manager = DialogueManager(RESOURCE_PATH)
     bot = BotHandler(token, simple_manager)
-    
+
     ###############################################################
 
     print("Ready to talk!")
